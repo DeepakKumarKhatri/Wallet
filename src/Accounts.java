@@ -110,7 +110,7 @@ public class Accounts extends JFrame {
                 Features features = new Features(user);
             }else if (e.getActionCommand().equals("LOGOUT")) {
                 dispose();
-                StartMenu startMenu = new StartMenu();
+                new LoginPage();
             }
         }
     }

@@ -8,9 +8,11 @@ public class ShoppingList implements Serializable {
     private double product2Price;
     private String product3;
     private double product3Price;
+    private int listId;
 
     public ShoppingList(){}
-    public ShoppingList(String listName, String product1, double product1Price, String product2, double product2Price, String product3, double product3Price) {
+
+    public ShoppingList(String listName, String product1, double product1Price, String product2, double product2Price, String product3, double product3Price, int listId) {
         this.listName = listName;
         this.product1 = product1;
         this.product1Price = product1Price;
@@ -18,6 +20,7 @@ public class ShoppingList implements Serializable {
         this.product2Price = product2Price;
         this.product3 = product3;
         this.product3Price = product3Price;
+        this.listId = listId;
     }
 
     public String getListName() {
@@ -76,10 +79,19 @@ public class ShoppingList implements Serializable {
         this.product3Price = product3Price;
     }
 
+    public int getListId() {
+        return listId;
+    }
+
+    public void setListId(int listId) {
+        this.listId = listId;
+    }
+
     @Override
     public String toString() {
         return "------------- SHOPPING LIST -------------\n " +
-                "List Name = '" + listName + '\'' +
+                "List Id = '" + listId + '\'' +
+                ",List Name = '" + listName + '\'' +
                 ",Product 1 Name = '" + product1 + '\'' +
                 ",Product 1 Price = " + product1Price +
                 ",Product 2 Name = '" + product2 + '\'' +
