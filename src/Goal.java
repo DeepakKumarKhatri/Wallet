@@ -6,13 +6,15 @@ public class Goal implements Serializable {
     private double targetAmount;
     private double savedAlready;
     private Date desiredDate;
+    private int goalId;
 
-    public Goal(String goalName, String goalDescription, double targetAmount, double savedAlready, Date desiredDate) {
+    public Goal(String goalName, String goalDescription, double targetAmount, double savedAlready, Date desiredDate, int goalId) {
         this.goalName = goalName;
         this.goalDescription = goalDescription;
         this.targetAmount = targetAmount;
         this.savedAlready = savedAlready;
         this.desiredDate = desiredDate;
+        this.goalId = goalId;
     }
 
     public String getGoalName() {
@@ -55,10 +57,19 @@ public class Goal implements Serializable {
         this.desiredDate = desiredDate;
     }
 
+    public int getGoalId() {
+        return goalId;
+    }
+
+    public void setGoalId(int goalId) {
+        this.goalId = goalId;
+    }
+
     @Override
     public String toString() {
         return "------------- GOAL ------------- \n" +
-                "Goal Name = '" + goalName + '\'' +
+                "Goal Id = '" + goalId + '\'' +
+                ",Goal Name = '" + goalName + '\'' +
                 ",Goal Description = '" + goalDescription + '\'' +
                 ",Target Amount = " + targetAmount +
                 ",Saved Already = " + savedAlready +
