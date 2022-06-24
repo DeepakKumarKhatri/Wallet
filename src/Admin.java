@@ -198,16 +198,9 @@ class AdminOperations extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("SHOW ALL USERS")) {
-
                 FileOperations fileOperations = new FileOperations();
                 ArrayList<User> showAllUsersList = fileOperations.readInFile();
-
-                StringBuilder result = new StringBuilder("DETAILS OF ALL USERS IS AS FOLLOWS \n");
-                for (User user : showAllUsersList) {
-                    result.append(user.toString());
-                }
-                JOptionPane.showMessageDialog(new JFrame(), result.toString());
-
+                JOptionPane.showMessageDialog(new JFrame(), showAllUsersList.toString());
             }else if (e.getActionCommand().equals("TOP 3 RICH USERS")) {
                 dispose();
                 RichUsersInfo richUsersInfo = new RichUsersInfo();
@@ -405,25 +398,25 @@ class RichUsersInfo extends JFrame{
     ArrayList<User> richUsersList = fileOperations.readInFile();
 
     String firstUserIs = "";
-    String firstUserName = richUsersList.get(0).getFirstName();
-    double firstUserBalance = richUsersList.get(0).getCashBalance();
+    String firstUserName = "";
+    double firstUserBalance = Integer.MIN_VALUE;
     public String firstUser () {
-        for (int i = 1; i < richUsersList.size(); i++) {
-            if (richUsersList.get(i).getCashBalance() > richUsersList.get(i - 1).getCashBalance()) {
+        for (int i = 0; i < richUsersList.size(); i++) {
+            if (richUsersList.get(i).getCashBalance() > firstUserBalance) {
                 firstUserIs = richUsersList.get(i).getFirstName() + " " + richUsersList.get(i).getLastName();
                 firstUserName = richUsersList.get(i).getFirstName();
-                firstUserBalance = richUsersList.get(1).getCashBalance();
+                firstUserBalance = richUsersList.get(i).getCashBalance();
             }
         }
         return firstUserIs;
     }
 
-    String secondUserIs = richUsersList.get(0).getFirstName() + " " + richUsersList.get(0).getLastName();
-    String secondUserName = richUsersList.get(0).getFirstName();
-    double secondUserBalance = richUsersList.get(0).getCashBalance();
+    String secondUserIs = "";
+    String secondUserName = "";
+    double secondUserBalance = Integer.MIN_VALUE;
     public String secondUser () {
-        for (int i = 1; i < richUsersList.size(); i++) {
-            if ((richUsersList.get(i).getCashBalance() > richUsersList.get(i - 1).getCashBalance()) && (firstUserName != richUsersList.get(i).getFirstName())) {
+        for (int i = 0; i < richUsersList.size(); i++) {
+            if (richUsersList.get(i).getCashBalance()< firstUserBalance && richUsersList.get(i).getCashBalance()>secondUserBalance) {
                 secondUserIs = richUsersList.get(i).getFirstName() + " " + richUsersList.get(i).getLastName();
                 secondUserName = richUsersList.get(i).getFirstName();
                 secondUserBalance = richUsersList.get(i).getCashBalance();
@@ -433,14 +426,16 @@ class RichUsersInfo extends JFrame{
     }
 
 
-    String thirdUserIs = richUsersList.get(0).getFirstName() + " " + richUsersList.get(0).getLastName();
-    String thirdUserName = richUsersList.get(0).getFirstName();
+    String thirdUserIs = "";
+    String thirdUserName = "";
+    double thirdUserBalance = secondUserBalance;
 
     public String thirdUser () {
-        for (int i = 1; i < richUsersList.size(); i++) {
-            if (richUsersList.get(i).getCashBalance() < (firstUserBalance) && richUsersList.get(i).getCashBalance() <(secondUserBalance) && (secondUserName != richUsersList.get(i).getFirstName()) && (firstUserName != richUsersList.get(i).getFirstName())) {
+        for (int i = 0; i < richUsersList.size(); i++) {
+            if (richUsersList.get(i).getCashBalance()< secondUserBalance && richUsersList.get(i).getCashBalance()>thirdUserBalance) {
                 thirdUserIs = richUsersList.get(i).getFirstName() + " " + richUsersList.get(i).getLastName();
                 thirdUserName = richUsersList.get(i).getFirstName();
+                thirdUserBalance = richUsersList.get(i).getCashBalance();
             }
         }
         return thirdUserIs;

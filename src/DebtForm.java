@@ -103,11 +103,13 @@ public class DebtForm extends JFrame {
                 if (user.getDebt() != null) {
                     if (user.getDebt().size()==0){
                         JOptionPane.showMessageDialog(new JFrame(),"PLEASE ADD DEBT TO GET SUGGESTIONS FROM WALLET");
+                        new DebtForm(user);
                     }else {
                         SuggestionsFromWalletForDEBT suggestionsFromWalletForDEBT = new SuggestionsFromWalletForDEBT(user);
                     }
                 }else{
                     JOptionPane.showMessageDialog(new JFrame(),"PLEASE ADD DEBT TO GET SUGGESTIONS FROM WALLET");
+                    new DebtForm(user);
                 }
             }else if (e.getActionCommand().equals("DEBT IS FULFILLED")) {
                 dispose();
@@ -172,13 +174,14 @@ class DebtIsOver extends JFrame {
                 }
             }else if (e.getActionCommand().equals("GO BACK")){
                 dispose();
-                Features features = new Features(user);
+                new DebtForm(user);
             }
         }
 
         public void unlistTheDebt(){
             for (int i = 0; i < userArrayList.size(); i++) {
                 if (userArrayList.get(i).getDebt().get(i).getDebtId() == Integer.parseInt(debtIdInput.getText())){
+                    user.getDebt().remove(i);
                     userArrayList.get(i).getDebt().remove(i);
                     break;
                 }
@@ -285,7 +288,7 @@ class SuggestionsFromWalletForDEBT extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("OKAY")) {
                 dispose();
-                Features features = new Features(user);
+                new DebtForm(user);
             }else  if (e.getActionCommand().equals("MAIN MENU")) {
                 dispose();
                 Accounts accounts = new Accounts(user);
@@ -348,7 +351,7 @@ class Lent extends JFrame{
         add(endDate);add(endDayInput);
         add(endMonth);add(endMonthInput);
         add(endYear);add(endYearInput);
-        add(debtIdLabel);add(descriptionInput);
+        add(debtIdLabel);add(debtIdInput);
 
         add(addButton);add(cancel);
 
@@ -409,7 +412,7 @@ class Lent extends JFrame{
 
             }else if (e.getActionCommand().equals("CANCEL")){
                 dispose();
-                Features features = new Features(user);
+                new DebtForm(user);
             }
         }
     }
@@ -529,7 +532,7 @@ class Borrowed extends JFrame{
                 JOptionPane.showMessageDialog(new JFrame(),"DEBT ADDED SUCCESSFULLY");
             }else if (e.getActionCommand().equals("CANCEL")){
                 dispose();
-                Features features = new Features(user);
+                new DebtForm(user);
             }
         }
     }

@@ -100,9 +100,15 @@ public class BudgetForm extends JFrame {
             }else if (e.getActionCommand().equals("SUGGESTION FOR YOU FROM WALLET")) {
                 dispose();
                 if (user.getBudget() != null) {
-                    SuggestionsFromWallet suggestionsFromWallet = new SuggestionsFromWallet(user);
+                    if (user.getBudget().size()==0){
+                        JOptionPane.showMessageDialog(new JFrame(),"PLEASE ADD BUDGET TO GET SUGGESTIONS FROM WALLET");
+                        new BudgetForm(user);
+                    }else {
+                        SuggestionsFromWallet suggestionsFromWallet = new SuggestionsFromWallet(user);
+                    }
                 }else{
                     JOptionPane.showMessageDialog(new JFrame(),"PLEASE ADD BUDGET TO GET SUGGESTIONS FROM WALLET");
+                    new BudgetForm(user);
                 }
             }else if (e.getActionCommand().equals("BUDGET COMPLETED")) {
                 dispose();
@@ -173,6 +179,7 @@ class BudgetCompleted extends JFrame {
         public void deleteTheBudgetMethod(){
             for (int i = 0; i < userArrayList.size(); i++) {
                 if (userArrayList.get(i).getBudget().get(i).getBudgetId() == Integer.parseInt(budgetIdInput.getText())){
+                    user.getBudget().remove(i);
                     userArrayList.get(i).getBudget().remove(i);
                     break;
                 }
@@ -279,7 +286,7 @@ class SuggestionsFromWallet extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("OKAY")) {
                 dispose();
-                Features features = new Features(user);
+                new BudgetForm(user);
             }else  if (e.getActionCommand().equals("MAIN MENU")) {
                 dispose();
                 Accounts accounts = new Accounts(user);
@@ -377,7 +384,7 @@ class Periodic extends JFrame{
 
             }else if (e.getActionCommand().equals("CANCEL")){
                 dispose();
-                Features features = new Features(user);
+                new BudgetForm(user);
             }
         }
     }
@@ -471,7 +478,7 @@ class OneTime extends JFrame{
 
             }else if (e.getActionCommand().equals("CANCEL")){
                 dispose();
-                Features features = new Features(user);
+                new BudgetForm(user);
             }
         }
     }

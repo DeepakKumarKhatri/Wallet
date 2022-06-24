@@ -77,7 +77,8 @@ public class NewUserForm extends JFrame {
         submitButton.addActionListener(myActionListener);
         homeButton.addActionListener(myActionListener);
     }
-
+    FileOperations fileOperations = new FileOperations();
+    ArrayList<User>myTemp = fileOperations.readInFile();
     public class MyActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
@@ -90,14 +91,15 @@ public class NewUserForm extends JFrame {
                 String email = emailInput.getText();
                 String password = passwordInput.getText();
 
-                User user = new User(firstName, lastName, phone, cnic, cashBalance, email, password);
-                FileOperations fileOperations = new FileOperations();
-                fileOperations.writeInFile(user,true);
-                dispose();
-                boolean doubleCheck = new AddNewGoal(user).isConfirmCheck();
-                ArrayList<User>myTemp = fileOperations.readInFile();
-                for (int i=0;i<myTemp.size();i++){
-                    System.out.println(myTemp.get(i).toString());
+                if (phone.length()==11 && cnic.length()==13 && cashBalance>=0
+                && email.contains("@gmail.com") ||email.contains("@yahoo.com") || email.contains("@outlook.com")
+                && password.length()>=6){
+                    User user = new User(firstName, lastName, phone, cnic, cashBalance, email, password);
+                    fileOperations.writeInFile(user, true);
+                    dispose();
+                    boolean doubleCheck = new AddNewGoal(user).isConfirmCheck();
+                }else{
+                    JOptionPane.showMessageDialog(new JFrame(),"INVALID CREDENTIALS");
                 }
             }else if (e.getActionCommand().equals("HOME")){
                 dispose();

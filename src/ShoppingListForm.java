@@ -91,9 +91,15 @@ public class ShoppingListForm extends JFrame {
             }else if (e.getActionCommand().equals("SUGGESTION FOR YOU FROM WALLET")) {
                 dispose();
                 if (user.getShoppingList() != null) {
-                    new SuggestionsFromWalletForShoppingList(user);
+                    if (user.getShoppingList().size()==0){
+                        JOptionPane.showMessageDialog(new JFrame(),"PLEASE ADD SHOPPING LIST TO GET SUGGESTIONS FROM WALLET");
+                        new ShoppingListForm(user);
+                    }else {
+                        new SuggestionsFromWalletForShoppingList(user);
+                    }
                 }else{
                     JOptionPane.showMessageDialog(new JFrame(),"PLEASE ADD SHOPPING LISTS TO GET SUGGESTIONS FROM WALLET");
+                    new ShoppingListForm(user);
                 }
             }else if (e.getActionCommand().equals("LIST COMPLETED")) {
                 dispose();
@@ -102,7 +108,6 @@ public class ShoppingListForm extends JFrame {
         }
     }
 }
-
 class ListCompleted extends JFrame {
     JTextField listIdInput;
     JButton goBack, deleteNow;
@@ -158,13 +163,14 @@ class ListCompleted extends JFrame {
                 }
             }else if (e.getActionCommand().equals("GO BACK")){
                 dispose();
-                Features features = new Features(user);
+                new ShoppingListForm(user);
             }
         }
 
         public void deleteTheShoppingList(){
-            for (int i = 0; i < userArrayList.size(); i++) {
-                if (userArrayList.get(i).getShoppingList().get(i).getListId() == Integer.parseInt(listIdInput.getText())){
+            for (int i = 0; i < user.getShoppingList().size(); i++) {
+                if (user.getShoppingList().get(i).getListId() == Integer.parseInt(listIdInput.getText())){
+                    user.getShoppingList().remove(i);
                     userArrayList.get(i).getShoppingList().remove(i);
                     break;
                 }
@@ -267,7 +273,7 @@ class SuggestionsFromWalletForShoppingList extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("OKAY")) {
                 dispose();
-                Features features = new Features(user);
+                new ShoppingListForm(user);
             }else  if (e.getActionCommand().equals("MAIN MENU")) {
                 dispose();
                 Accounts accounts = new Accounts(user);
@@ -381,7 +387,7 @@ class AddNewList extends JFrame {
                 JOptionPane.showMessageDialog(new JFrame(),"SHOPPING LIST ADDED SUCCESSFULLY");
 
             }else if (e.getActionCommand().equals("CANCEL")) {
-                Features features = new Features(user);
+                new ShoppingListForm(user);
                 dispose();
             }
         }

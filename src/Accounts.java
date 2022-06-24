@@ -55,7 +55,11 @@ public class Accounts extends JFrame {
         dayGoalPanel.add(dayGoalLabel);
 
         JLabel dayGoalTextField = new JLabel();
-        dayGoalTextField.setText(user.getGoal().get(0).getGoalDescription());
+        if (user.getGoal().size()>0) {
+            dayGoalTextField.setText(user.getGoal().get(0).getGoalDescription());
+        }else{
+            dayGoalTextField.setText("NO GOAL ADDED YET!");
+        }
         dayGoalTextField.setForeground(new Color(0xFF8D712B, true));
         dayGoalTextField.setFont(new Font("Calibri",Font.BOLD,30));
 

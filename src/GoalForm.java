@@ -93,9 +93,15 @@ public class GoalForm extends JFrame {
             }else if (e.getActionCommand().equals("SUGGESTION FOR YOU FROM WALLET")) {
                 dispose();
                 if (user.getGoal() != null) {
-                    new SuggestionsFromWalletForGOAL(user);
+                    if (user.getGoal().size()==0){
+                        JOptionPane.showMessageDialog(new JFrame(),"PLEASE ADD GOAL TO GET SUGGESTIONS FROM WALLET");
+                        new GoalForm(user);
+                    }else {
+                        new SuggestionsFromWalletForGOAL(user);
+                    }
                 }else{
                     JOptionPane.showMessageDialog(new JFrame(),"PLEASE ADD GOALS TO GET SUGGESTIONS FROM WALLET");
+                    new GoalForm(user);
                 }
             }else if (e.getActionCommand().equals("GOAL COMPLETED")) {
                 dispose();
@@ -160,13 +166,14 @@ class GoalCompleted extends JFrame {
                 }
             }else if (e.getActionCommand().equals("GO BACK")){
                 dispose();
-                Features features = new Features(user);
+                new GoalForm(user);
             }
         }
 
         public void deleteTheGoal(){
             for (int i = 0; i < userArrayList.size(); i++) {
                 if (userArrayList.get(i).getGoal().get(i).getGoalId() == Integer.parseInt(goalIdInput.getText())){
+                    user.getGoal().remove(i);
                     userArrayList.get(i).getGoal().remove(i);
                     break;
                 }
@@ -273,7 +280,7 @@ class SuggestionsFromWalletForGOAL extends JFrame{
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("OKAY")) {
                 dispose();
-                Features features = new Features(user);
+                new GoalForm(user);
             }else  if (e.getActionCommand().equals("MAIN MENU")) {
                 dispose();
                 Accounts accounts = new Accounts(user);
@@ -281,14 +288,11 @@ class SuggestionsFromWalletForGOAL extends JFrame{
         }
     }
 }
-
 class AddNewGoal extends JFrame{
     private boolean confirmCheck = false;
-
     public boolean isConfirmCheck() {
         return confirmCheck;
     }
-
     public void setConfirmCheck(boolean confirmCheck) {
         this.confirmCheck = confirmCheck;
     }
@@ -403,7 +407,7 @@ class AddNewGoal extends JFrame{
                 Credentials credentials = new Credentials();
             } else if (e.getActionCommand().equals("CANCEL")) {
                 dispose();
-                Features features = new Features(user);
+                new GoalForm(user);
             }
         }
     }
